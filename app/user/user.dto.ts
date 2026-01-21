@@ -4,12 +4,12 @@ export enum UserRole {
 }
 
 export interface IUser {
-  name?: string;
+  name: string;
   email: string;
   password: string;
   role: UserRole;
-  active: boolean;
-  blocked: boolean;
+  active?: boolean;
+  blocked?: boolean;
   blockReason?: string;
   image?: string;
   refreshToken?: string;
