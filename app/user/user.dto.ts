@@ -1,9 +1,11 @@
+import { BaseSchema } from "@/common/dto/base.dto";
+
 export enum UserRole {
   USER = "USER",
   ADMIN = "ADMIN",
 }
 
-export interface IUser {
+export interface IUser extends BaseSchema{
   name: string;
   email: string;
   password: string;

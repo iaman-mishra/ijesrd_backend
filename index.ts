@@ -32,7 +32,7 @@ const initApp = async (): Promise<void> => {
   }
 
   app.get("/", (req: Request, res: Response) => {
-    res.send("API IJESRD Status: OK");
+    res.send("API Status: OK");
   });
 
   app.use(errorHandler);
