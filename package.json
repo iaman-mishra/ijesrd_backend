@@ -1,18 +1,19 @@
 {
-  "name": "ijesrd_backend",
+  "name": "backend-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a backend template using Express, TypeScript, and MongoDB.",
   "license": "ISC",
-  "author": "",
+  "author": "https://github.com/iaman-mishra",
   "main": "index.ts",
   "scripts": {
     "dev": "nodemon",
-    "build": "tsc",
-    "prod": "node ./dist/index.js"
+    "build": "tsc && tsc-alias",
+    "prod": "cross-env NODE_ENV=production node ./dist/index.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
+    "cross-env": "^10.1.0",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "express-rate-limit": "^8.2.1",
@@ -32,6 +33,7 @@
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.3"
   }

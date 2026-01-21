@@ -1,5 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
 import express, { type Request, type Response } from "express";
 import cors from "cors";
 import http from "http";
@@ -11,8 +9,11 @@ import { swaggerSpec } from "@/common/swagger/swagger.config";
 import errorHandler from "@/common/middleware/error-handler.middleware";
 import { globalLimiter } from "@/common/middleware/rate-limit.middleware";
 import router from "@/routes";
+import { loadConfig } from "@/common/helper/config.helper";
 
-const port = Number(process.env.PORT) ?? 5000;
+loadConfig();
+
+const port = Number(process.env.PORT || 5000);
 
 const app = express();
 

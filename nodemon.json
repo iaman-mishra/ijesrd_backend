@@ -1,6 +1,6 @@
 {
   "ignore": [".git", "node_modules", "dist"],
   "watch": ["./index.ts", "./app"],
-  "exec": "ts-node -r tsconfig-paths/register index.ts",
+  "exec": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register index.ts",
   "ext": "ts"
 }
