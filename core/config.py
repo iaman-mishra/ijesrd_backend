@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     DEBUG: bool = True
     DB_URI: str = Field(default="")
     ALLOWED_ORIGINS : list[str] = ["http://localhost:3000"]
+    ROUTE_PREFIX: str = "/api"
     model_config = SettingsConfigDict(env_file=".env")
     
     
