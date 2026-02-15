@@ -1,8 +1,8 @@
-"""added users table
+"""User model
 
-Revision ID: 7705b3981b9f
-Revises: 1d22f46e99ec
-Create Date: 2026-02-15 00:15:22.053689
+Revision ID: 5411bc5ac4a0
+Revises: 
+Create Date: 2026-02-15 16:00:44.436912
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '7705b3981b9f'
-down_revision: Union[str, Sequence[str], None] = '1d22f46e99ec'
+revision: str = '5411bc5ac4a0'
+down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

@@ -1,44 +1,58 @@
-from datetime import datetime
-from sqlalchemy import String, Integer, DateTime, Boolean
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, Integer, Boolean
+from sqlalchemy.orm import Mapped, mapped_column , validates
 
 from core.database import Base
+from core.mixins import TimestampMixin
+from core.security import hash_password
 
 
-class User(Base):
+class User(Base, TimestampMixin):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(
         Integer,
         primary_key=True,
-        index=True
+        index=True,
     )
 
     email: Mapped[str] = mapped_column(
-        String(255),
         unique=True,
         index=True,
         nullable=False
     )
-
-    username: Mapped[str] = mapped_column(
-        String(100),
-        unique=True,
-        index=True,
+    
+    password: Mapped[str] = mapped_column(
         nullable=False
     )
 
-    hashed_password: Mapped[str] = mapped_column(
-        String(255),
-        nullable=False
-    )
-
-    is_active: Mapped[bool] = mapped_column(
+    active: Mapped[bool] = mapped_column(
         Boolean,
         default=True
     )
-
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime,
-        default=datetime.utcnow
+    
+    blocked:Mapped[bool] = mapped_column(
+        Boolean,
+        default=False
     )
+    
+    blockReason:Mapped[str] = mapped_column(
+        String,
+        default="",
+        nullable=False,
+    )
+    
+    refreshToken: Mapped[str] = mapped_column(
+        String,
+        nullable=True
+    )
+    
+    image: Mapped[str] = mapped_column(
+        String,
+         nullable=True
+    )
+
+    @validates("password")
+    def hash_user_password(self):
+        if self.password.startswith("$2b$"):
+            return self.password
+        return hash_password(self.password)
