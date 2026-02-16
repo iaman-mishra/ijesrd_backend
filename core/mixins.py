@@ -2,7 +2,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import DateTime
 from sqlalchemy.sql import func
 from datetime import datetime
-
+from sqlalchemy.dialects.postgresql import UUID
+import uuid as py_uuid
 
 class TimestampMixin:
     __abstract__ = True
@@ -18,4 +19,16 @@ class TimestampMixin:
         server_default=func.now(),
         onupdate=func.now(),
         nullable=False
+    )
+
+
+class UUIDMixin:
+    __abstract__ = True
+
+    uuid: Mapped[py_uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        default=py_uuid.uuid4,
+        unique=True,
+        nullable=False,
+        index=True
     )

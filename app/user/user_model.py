@@ -1,20 +1,18 @@
 from sqlalchemy import String, Integer, Boolean
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column , validates
+import uuid
 
 from core.database import Base
-from core.mixins import TimestampMixin
+from core.mixins import TimestampMixin ,UUIDMixin
 from core.security import hash_password
 
 
-class User(Base, TimestampMixin):
+class User(Base, UUIDMixin, TimestampMixin ):
     __tablename__ = "users"
 
-    id: Mapped[int] = mapped_column(
-        Integer,
-        primary_key=True,
-        index=True,
-    )
-
+    id: Mapped[int] = mapped_column(primary_key=True)
+    
     email: Mapped[str] = mapped_column(
         unique=True,
         index=True,

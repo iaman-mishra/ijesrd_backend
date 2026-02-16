@@ -6,5 +6,9 @@ router = APIRouter(
 )
 
 @router.get("")
-def getUser():
+async def getUser():
+    return {"sucess":True}
+
+@router.post("/register")
+async def register():
     return {"sucess":True}
