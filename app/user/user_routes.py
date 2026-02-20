@@ -1,7 +1,8 @@
 from fastapi import APIRouter
+from fastapi.responses import Response
 
 router = APIRouter(
-    prefix="/user",
+    prefix="/users",
     tags=["User"]
 )
 
@@ -11,4 +12,7 @@ async def getUser():
 
 @router.post("/register")
 async def register():
-    return {"sucess":True}
+    return Response(
+        status_code=200,
+        
+    )

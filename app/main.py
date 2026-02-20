@@ -10,3 +10,4 @@ app.include_router(user_router, prefix=settings.ROUTE_PREFIX)
 @app.get("/", tags=["Health"] )
 async def read_root():
     return {"status": "ok"}
+

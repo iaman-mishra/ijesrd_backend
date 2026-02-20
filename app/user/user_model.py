@@ -1,7 +1,5 @@
-from sqlalchemy import String, Integer, Boolean
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import String, Boolean
 from sqlalchemy.orm import Mapped, mapped_column , validates
-import uuid
 
 from core.database import Base
 from core.mixins import TimestampMixin ,UUIDMixin
@@ -41,12 +39,14 @@ class User(Base, UUIDMixin, TimestampMixin ):
     
     refreshToken: Mapped[str] = mapped_column(
         String,
-        nullable=True
+        nullable=True,
+        default=None
     )
     
     image: Mapped[str] = mapped_column(
         String,
-         nullable=True
+         nullable=True,
+         default=None
     )
 
     @validates("password")
