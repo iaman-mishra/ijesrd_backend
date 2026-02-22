@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import  DeclarativeBase
-from core.config import settings
+from app.core.config import settings
 
 if settings.DB_URI is None or settings.DB_URI == "":
 	raise ValueError("DB_URI Not Found")

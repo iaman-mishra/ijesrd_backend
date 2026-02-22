@@ -6,13 +6,13 @@ from typing import Any
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-from core.config import settings
+from app.core.config import settings
 
 # ─────────────────────────────────────────────
 # Password Hashing (bcrypt via passlib)
 # ─────────────────────────────────────────────
 
-pwd_context = CryptContext( schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def hash_password(password: str) -> str:
@@ -27,17 +27,18 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 # JWT Token Creation
 # ─────────────────────────────────────────────
 
-def _create_token(data: dict[str, Any], expires_delta: timedelta) -> str:
+
+def create_token(data: dict[str, Any], expires_delta: timedelta) -> str:
     to_encode = data.copy()
     expire = datetime.now(timezone.utc) + expires_delta
-   
+
     to_encode.update({"exp": expire})
 
     return jwt.encode(to_encode, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
 
 
 def create_access_token(subject: str | int) -> str:
-    return _create_token(
+    return create_token(
         {
             "sub": str(subject),
             "type": "access",
@@ -47,12 +48,12 @@ def create_access_token(subject: str | int) -> str:
 
 
 def create_refresh_token(subject: str | int) -> str:
-    return _create_token(
+    return create_token(
         {
             "sub": str(subject),
             "type": "refresh",
         },
-        timedelta(days=settings.REFRESH_TOKEN_EXPIRY_DAYS)
+        timedelta(days=settings.REFRESH_TOKEN_EXPIRY_DAYS),
     )
 
 
