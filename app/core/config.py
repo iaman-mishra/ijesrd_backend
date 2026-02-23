@@ -4,7 +4,7 @@ from pydantic import Field
 
 
 class Settings(BaseSettings):
-    
+
     # App Configuration
     APP_NAME: str = "IJESRD-Server"
     ROUTE_PREFIX: str = "/api"
@@ -13,15 +13,29 @@ class Settings(BaseSettings):
 
     # Database
     DB_URI: str = Field(default="")
-   
+
     # CORS
     ALLOWED_ORIGINS: list[str] = ["http://localhost:3000"]
 
     # Security / JWT
     JWT_SECRET: str = Field(default="VERY_CONFIDENTIAL")
     JWT_ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRY_MINUTES:int=30
-    REFRESH_TOKEN_EXPIRY_DAYS:int=7
+    ACCESS_TOKEN_EXPIRY_MINUTES: int = 30
+    REFRESH_TOKEN_EXPIRY_DAYS: int = 7
+
+    # Email
+    MAIL_USERNAME: str = ""
+    MAIL_PASSWORD: str = ""
+    MAIL_FROM: str = ""
+    MAIL_PORT: int = 587
+    MAIL_SERVER: str = "smtp.gmail.com"
+    MAIL_FROM_NAME: str = "IJESRD"
+    MAIL_STARTTLS: bool = True
+    MAIL_SSL_TLS: bool = False
+    USE_CREDENTIALS: bool = True
+
+    # FE Url
+    FE_URL: str = "http://localhost:3000"
 
     # Environment File
     model_config = SettingsConfigDict(env_file=".env")

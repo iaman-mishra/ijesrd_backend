@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Welcome {{ name }} 👋</h2>
+
+    <p>Please verify your account:</p>
+
+    <a href="{{ verification_url }}" class="btn">
+        Verify Account
+    </a>
+{% endblock %}
