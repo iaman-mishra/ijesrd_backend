@@ -14,8 +14,13 @@ class Settings(BaseSettings):
     # Database
     DB_URI: str = Field(default="")
 
+    # FE Url
+    FE_URL: str = "http://localhost:3000"
+
     # CORS
-    ALLOWED_ORIGINS: list[str] = ["http://localhost:3000"]
+    @property
+    def ALLOWED_ORIGINS(self) -> list[str]:
+        return [self.FE_URL]
 
     # Security / JWT
     JWT_SECRET: str = Field(default="VERY_CONFIDENTIAL")
@@ -34,10 +39,6 @@ class Settings(BaseSettings):
     MAIL_SSL_TLS: bool = False
     USE_CREDENTIALS: bool = True
 
-    # FE Url
-    FE_URL: str = "http://localhost:3000"
-
-    # Environment File
     model_config = SettingsConfigDict(env_file=".env")
 
 

@@ -22,7 +22,7 @@ async def register(body: CreateUserInput, db: AsyncSession = Depends(get_db)):
     result = await service.create_user(body)
 
     return APIResponse(
-        message="User Registered Successfully",
         success=True,
+        message="User registered successfully",
         data=result,
     )

@@ -1,13 +1,13 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
-from sqlalchemy.orm import  DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase
 from app.core.config import settings
 
 if settings.DB_URI is None or settings.DB_URI == "":
-	raise ValueError("DB_URI Not Found")
+    raise ValueError("DB_URI Not Found")
 
 engine = create_async_engine(
     settings.DB_URI,
-    echo=settings.DEBUG, 
+    echo=settings.DEBUG,
     pool_pre_ping=True,
 )
 
@@ -21,6 +21,7 @@ AsyncSessionLocal = async_sessionmaker(
 async def get_db():
     async with AsyncSessionLocal() as session:
         yield session
+
 
 class Base(DeclarativeBase):
     pass

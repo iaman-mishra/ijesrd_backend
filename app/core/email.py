@@ -1,5 +1,6 @@
 # app/core/email.py
 
+from pathlib import Path
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig, MessageType
 from pydantic import SecretStr, NameEmail, EmailStr
 from typing import List
@@ -16,14 +17,15 @@ conf = ConnectionConfig(
     MAIL_STARTTLS=settings.MAIL_STARTTLS,
     MAIL_SSL_TLS=settings.MAIL_SSL_TLS,
     USE_CREDENTIALS=settings.USE_CREDENTIALS,
+    TEMPLATE_FOLDER=Path(__file__).parent.parent / "templates",
 )
 
 
 async def send_email(
     recipients: List[EmailStr],
     subject: str,
-    body: str,
-    subtype: MessageType = MessageType.html,
+    template_name: str,
+    template_body: dict,
 ):
     formatted_recipients: List[NameEmail] = []
 
@@ -38,9 +40,9 @@ async def send_email(
     message = MessageSchema(
         subject=subject,
         recipients=formatted_recipients,
-        body=body,
-        subtype=subtype,
+        template_body=template_body,
+        subtype=MessageType.html,
     )
 
     fm = FastMail(conf)
-    await fm.send_message(message)
+    await fm.send_message(message, template_name=template_name)
